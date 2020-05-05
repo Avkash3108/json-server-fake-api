@@ -1,10 +1,10 @@
 {
   "name": "@avkash3108/json-server-fake-api",
-  "version": "1.1.0",
-  "description": "A fake API for react app.",
+  "version": "1.1.1",
+  "description": "Set of fake DATA API for front end app",
   "main": "index.js",
   "bin": {
-    "fake-api": "./bin/index.js"
+    "json-api": "./bin/index.js"
   },
   "repository": {
     "type": "git",
