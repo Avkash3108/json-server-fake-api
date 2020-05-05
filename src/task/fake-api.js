@@ -1,14 +1,17 @@
-function run(params) {
-    const jsonServer = require('json-server');
-    const server = jsonServer.create();
-    const router = jsonServer.router('../db.json');
-    const middlewares = jsonServer.defaults();
+const pathUtils = require('../utils/pathUtils');
+const shelljs = require('shelljs');
 
-    server.use(middlewares);
-    server.use(router);
-    server.listen(params.port, () => {
-        console.log('JSON Server is running')
-    });
+function run(params) {
+    const dbExporter = pathUtils('@avkash3108/json-server-fake-api', 'src/export-db.js');
+    const runServer = pathUtils('@avkash3108/json-server-fake-api', 'src/index.js');
+    const command = `node ${dbExporter} & node ${runServer}`;
+    const result = shelljs.exec(command);
+    cons success = 0;
+
+    if (result.code !== undefined && result.code !== success) {
+        shelljs.exit(result.code);
+    }
+    return result;
 }
 
 exports.command = 'start';
