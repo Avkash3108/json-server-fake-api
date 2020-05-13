@@ -4,7 +4,7 @@ const shelljs = require('shelljs');
 function run(params) {
     const dbExporter = pathUtils.getPackagePath('@avkash3108/json-server-fake-api', 'src/export-db.js');
     const runServer = pathUtils.getPackagePath('@avkash3108/json-server-fake-api', 'src/index.js');
-    const command = `node ${dbExporter} & node ${runServer}`;
+    const command = `node ${dbExporter} ${params.schema} & node ${runServer} ${params.port}`;
     const result = shelljs.exec(command);
     const success = 0;
 
@@ -20,6 +20,10 @@ exports.builder = {
     port: {
         default:  3000,
         type: 'number'
+    },
+    schema: {
+        default: 'index',
+        type: 'string'
     }
 };
 exports.handler = run

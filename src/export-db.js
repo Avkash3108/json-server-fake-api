@@ -1,12 +1,17 @@
-var jsf = require('json-schema-faker');
-var schema = require('./schema');
-var fs = require('fs');
-var faker = require('faker');
+const pathUtils = require('./utils/pathUtils')
+const jsf = require('json-schema-faker');
+const schemaPath = `./schema/${process.argv[2]}`;
+console.log(`Loading Schema => schema/${process.argv[2]}`);
+const schema = require(`./schema/${process.argv[2]}`);
+const fs = require('fs');
+const faker = require('faker');
 
 jsf.extend('faker', () => faker);
-var json = JSON.stringify(jsf.generate(schema));
+const json = JSON.stringify(jsf.generate(schema));
 
-fs.writeFile("./src/db.json", json, function (err) {
+const dbPath = pathUtils.getPackagePath('@avkash3108/json-server-fake-api', 'src/db/db.json');
+console.log(`${dbPath}`);
+fs.writeFile(`${dbPath}`, json, function (err) {
   if (err) {
     return console.log(err);
   } else {
