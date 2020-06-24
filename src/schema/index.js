@@ -35,8 +35,8 @@ var schema = {
     },
     "users": {
       "type": "array",
-      "minItems": 300,
-      "maxItems": 500,
+      "minItems": 10,
+      "maxItems": 20,
       "items": {
         "type": "object",
         "properties": {
@@ -57,6 +57,14 @@ var schema = {
             "type": "string",
             "faker": "internet.email"
           },
+          "password": {
+            "type": "string",
+            "faker": "internet.password"
+          },
+          "type": {
+            "type": "string",
+            "enum": ['user']
+          },
           "address": {
             "type": "string",
             "faker": "address.streetAddress"
@@ -66,11 +74,41 @@ var schema = {
             "faker": "phone.phoneNumber"
           }
         },
-        "required": ["id", "firstName", "lastName", "email", "address", "contact"]
+        "required": ["id", "firstName", "password", "lastName", "email", "address", "contact"]
+      }
+    },
+    "posts": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "faker": "lorem.sentence"
+          },
+          "id": {
+            "type": "integer",
+            "unique": true,
+            "minimum": 1
+          },
+          "description": {
+            "type": "string",
+            "faker": "lorem.paragraph"
+          },
+          "category": {
+            "type": "string",
+            "enum": ['Personal', 'Corporate', 'Finance', 'Sports', 'Business', 'Car', 'Fodd', 'Music', 'Movies']
+          },
+          "ownerId": {
+            "type": "integer"
+          }
+        },
+        "required": ["title", "id", "description", "ownerId", "category"]
       }
     }
   },
-  "required": ["users", "pizzas"]
+  "required": ["users", "pizzas", "posts"]
 };
 
 module.exports = schema;
